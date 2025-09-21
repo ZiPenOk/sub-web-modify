@@ -474,6 +474,7 @@ export default {
           "sub.cm": "https://sub.cm/short",
         },
         customBackend: {
+          "自用后端 全兼容": "https://api.sh1nyan.fun",
           "肥羊增强型后端【vless reality+hy1+hy2】": "https://url.v1.mk",
           "肥羊备用后端【vless reality+hy1+hy2】": "https://sub.d1.mk",
           "つつ-多地防失联【负载均衡+国内优化】": "https://api.tsutsu.one",
@@ -483,6 +484,7 @@ export default {
           "sub作者&lhie1提供": "https://api.dler.io",
         },
         backendOptions: [
+          {value: "https://api.sh1nyan.fun"},
           {value: "https://url.v1.mk"},
           {value: "https://sub.d1.mk"},
           {value: "https://api.tsutsu.one"},
@@ -492,6 +494,27 @@ export default {
           {value: "https://api.dler.io"},
         ],
         remoteConfig: [
+          {
+            label: "自用 Custom_OpenClash_Rules",
+            options: [
+              {
+                label: "Custom_Clash - 标准模板",
+                value: "https://github.com/ZiPenOk/Custom_OpenClash_Rules/raw/dev/cfg/Custom_Clash.ini"
+              },
+              {
+                label: "Custom_Clash_GFW 仅包含国内直连和 GFW 规则",
+                value: "https://github.com/ZiPenOk/Custom_OpenClash_Rules/raw/dev/cfg/Custom_Clash_GFW.ini"
+              },
+              {
+                label: "Custom_Clash_Lite 仅包含国内直连规则 国外代理且不做分流",
+                value: "https://github.com/ZiPenOk/Custom_OpenClash_Rules/raw/dev/cfg/Custom_Clash_Lite.ini"
+              },
+              {
+                label: "Custom_Clash_Full 重度分流规则模板",
+                value: "https://github.com/ZiPenOk/Custom_OpenClash_Rules/raw/dev/cfg/Custom_Clash_Full.ini"
+              },
+            ]
+          },
           {
             label: "通用",
             options: [
