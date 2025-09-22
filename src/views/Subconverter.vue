@@ -929,7 +929,7 @@ export default {
         xudp: false,
         tfo: false,
         sort: false,
-        expand: flase,
+        expand: true,
         scv: false,
         fdn: false,
         appendType: false,
@@ -1336,7 +1336,7 @@ export default {
           this.form.tfo = param.get("tfo") === 'true';
         }
         if (param.get("expand")) {
-          this.form.expand = param.get("expand") === 'flase';
+          this.form.expand = param.get("expand") === 'true';
         }
         if (param.get("scv")) {
           this.form.scv = param.get("scv") === 'true';
