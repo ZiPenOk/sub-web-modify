@@ -25,4 +25,4 @@ jobs:
         context: .
         platforms: linux/amd64,linux/arm,linux/arm64
         push: true
-        tags: zipenok/sub-web-modify:latest
+        tags: sh1nyan/sub-web-modify:latest
