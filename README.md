@@ -5,7 +5,7 @@
 ### 使用方法：
 建议使用Docker一键部署:
 ```
-docker run -d --restart unless-stopped -p 8090:80 --name sub-web-modify youshandefeiyang/sub-web-modify
+docker run -d --restart unless-stopped -p 8090:80 --name sub-web-modify sh1nyan/sub-web-modify
 ```
 或使用docker compose
 ```yaml
@@ -17,7 +17,7 @@ services:
         ports:
             - 8090:80
         container_name: sub-web-modify
-        image: youshandefeiyang/sub-web-modify
+        image: sh1nyan/sub-web-modify
 ```
 运行docker compose: `docker compose up -d`
 
