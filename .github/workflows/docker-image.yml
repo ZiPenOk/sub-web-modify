@@ -1,41 +1,25 @@
-name: Enhanced Docker Build to GHCR
-
+name: Docker Image CI
 on:
-  workflow_dispatch:
-    inputs:
-      image_tag:
-        description: '镜像标签（如 latest 或 v1.0.0）'
-        required: false
-        default: 'latest'
+  push:
+    branches:
+      - master
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
 
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v3
+    - name: Check out repository
+      uses: actions/checkout@master
 
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
 
-    - name: Log in to GitHub Container Registry
+    - name: Log in to Docker Hub
       uses: docker/login-action@v2
       with:
-        registry: ghcr.io
-        username: ${{ github.actor }}
-        password: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Configure build cache
-      uses: actions/cache@v3
-      with:
-        path: /tmp/.buildx-cache
-        key: ${{ runner.os }}-buildx-${{ github.sha }}
-        restore-keys: |
-          ${{ runner.os }}-buildx-
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
@@ -43,7 +27,4 @@ jobs:
         context: .
         platforms: linux/amd64,linux/arm,linux/arm64
         push: true
-        cache-from: type=local,src=/tmp/.buildx-cache
-        cache-to: type=local,dest=/tmp/.buildx-cache-new
-        tags: |
-          ghcr.io/zipenok/sub-web-modify:${{ inputs.image_tag }}
+        tags: zipenok/sub-web-modify:latest
