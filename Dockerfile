@@ -2,7 +2,7 @@
 FROM node:22.18.0-alpine3.22 AS build
 
 # 拉取 git 依赖必需；如有原生模块再加 python3 make g++
-RUN apk add --no-cache git
+RUN apk add --no-cache git python3 make g++
 
 WORKDIR /app
 
