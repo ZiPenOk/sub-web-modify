@@ -1,20 +1,22 @@
-name: Docker Image CI
+name: Enhanced Docker Build to GHCR
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - master
+    inputs:
+      image_tag:
+        description: '镜像标签（如 latest 或 v1.0.0）'
+        required: false
+        default: 'latest'
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      packages: write  # 必须添加，才能推送到 GHCR
+      packages: write
 
     steps:
-    - name: Check out repository
+    - name: Checkout repository
       uses: actions/checkout@v3
 
     - name: Set up Docker Buildx
@@ -27,10 +29,21 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker image to GHCR
+    - name: Configure build cache
+      uses: actions/cache@v3
+      with:
+        path: /tmp/.buildx-cache
+        key: ${{ runner.os }}-buildx-${{ github.sha }}
+        restore-keys: |
+          ${{ runner.os }}-buildx-
+
+    - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
         context: .
         platforms: linux/amd64,linux/arm,linux/arm64
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/sub-web-modify:latest
+        cache-from: type=local,src=/tmp/.buildx-cache
+        cache-to: type=local,dest=/tmp/.buildx-cache-new
+        tags: |
+          ghcr.io/zipenok/sub-web-modify:${{ inputs.image_tag }}
