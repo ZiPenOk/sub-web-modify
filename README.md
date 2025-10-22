@@ -9,15 +9,17 @@ docker run -d --restart unless-stopped -p 8090:80 --name sub-web-modify sh1nyan/
 ```
 或使用docker compose
 ```yaml
-name: sub-web-modify
+version: '3.8'
+
 services:
-    sub-web-modify:
-        restart: unless-stopped
-        privileged: false
-        ports:
-            - 8090:80
-        container_name: sub-web-modify
-        image: sh1nyan/sub-web-modify
+  sub-web-modify:
+    image: sh1nyan/sub-web-modify
+    container_name: sub-web-modify
+    restart: unless-stopped
+    privileged: false
+    ports:
+      - "8090:80"
+
 ```
 运行docker compose: `docker compose up -d`
 
